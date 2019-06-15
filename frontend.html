@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>Project</title>
+
+    <!-- link to Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  
+     <!-- link to googlefonts -->
+     <link href="https://fonts.googleapis.com/css?family=" rel="stylesheet">
+    <!-- link to CSS Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="frontend.css">
+    <!-- link to jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- link to Javascript -->
+    <script type="text/javascript" src="server.js"></script>  
+
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1> Welcome to Git Swoll</h1>
+            <p>The best place to track ya gains</p>
+        </div>
+    </div>  
+
+    <div class="container">
+        <div class="row">
+            <form action="/" method="post" role="form" enctype="application/x-www-form-urlcoded">
+                <legend>Register</legend>
+
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="pw">Password</label>
+                    <input type="password" class="form-control" name="pw" id="pw">
+                </div>
+                <div class="form-group">
+                    <label for="pw_confirm">Confirm Password</label>
+                    <input type="password" class="form-control" name="pw_confirm" id="pw_confirm">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+</body>
+</html>
