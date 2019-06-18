@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS workout_db;
+
 CREATE DATABASE workout_db;
 USE workout_db;
 
@@ -5,8 +7,7 @@ CREATE TABLE exercises
 (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    muscles_gross VARCHAR(255) NOT NULL,
-    muscles_fine VARCHAR(255) NOT NULL,
+    muscles VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -19,9 +20,9 @@ CREATE TABLE users
     PRIMARY KEY(id)
 );
 
-CREATE TABLE premadeWO {
+CREATE TABLE premadeWO (
     id INT NOT NULL,
     WOtype VARCHAR(255) NOT NULL,
     exerciseList VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-};
+);
