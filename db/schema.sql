@@ -19,9 +19,9 @@ CREATE TABLE users
     PRIMARY KEY(id)
 );
 
-CREATE TABLE premadeWO {
-    id INT NOT NULL,
+CREATE TABLE premadeWO (
+    id INT NOT NULL AUTO_INCREMENT,
     WOtype VARCHAR(255) NOT NULL,
     exerciseList VARCHAR(255) NOT NULL,
     PRIMARY KEY(id)
-};
+);
