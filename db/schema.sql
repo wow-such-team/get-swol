@@ -24,5 +24,6 @@ CREATE TABLE premadeWO (
     id INT NOT NULL,
     WOtype VARCHAR(255) NOT NULL,
     exerciseList VARCHAR(255) NOT NULL,
+    numOfFavs INT NOT NULL,
     PRIMARY KEY(id)
 );
