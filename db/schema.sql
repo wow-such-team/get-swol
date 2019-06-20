@@ -21,9 +21,9 @@ CREATE TABLE users
 );
 
 CREATE TABLE premadeWO (
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     WOtype VARCHAR(255) NOT NULL,
     exerciseList VARCHAR(255) NOT NULL,
-    numOfFavs INT NOT NULL,
+    numOfFavs INT NOT NULL DEFAULT 0,
     PRIMARY KEY(id)
 );
