@@ -1,0 +1,84 @@
+body {
+    background-color: maroon; 
+}
+
+#backgroundHome {
+    background: url(gymBackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 5%;
+}
+.whiteFont {
+    color: white;
+}
+
+.picLink {
+    float: right;
+    height: 90%;
+    width: auto;
+}
+.blockSummary {
+    float: left;
+}
+
+.col-md-1 {
+    width: 14%;
+    float: left;
+}
+
+.centered {
+    margin-left: 2%;
+}
+
+.picScale {
+    height: 50%; 
+    width: 100%; 
+    object-fit: contain;
+    float: right;
+}
+
+.center {
+    margin: auto;
+}
+.card {
+    background: white;
+    border-style: groove;
+    text-align: center;
+}
+
+#searchBlock {
+    border-radius: 25px;
+    background: maroon;
+    padding: 20px; 
+    width: 80%;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto; 
+    opacity: 0.85;
+  }
+
+#exploreBlock {
+    border-radius: 25px;
+    background: maroon;
+    padding: 20px; 
+    width: 80%;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto; 
+    opacity: 0.85;
+}
+
+#recentBlock {
+    border-radius: 25px;
+    background: maroon;
+    padding: 20px; 
+    width: 80%;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto; 
+    opacity: 0.85;
+}
+
+footer {
+    background-color: bisque;
+}
