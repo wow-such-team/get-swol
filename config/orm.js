@@ -90,11 +90,16 @@ var orm = {
   },
   selectWhere: function(table, condition, cb) {
       var queryString = "SELECT * FROM " + table;
-      queryString += " WHERE " + condition + ";";
+      queryString += " WHERE ";
+      queryString += condition;
+  
+      console.log(queryString);
 
       connection.query(queryString, function(err, result) {
-        if(err) throw err;
-        
+        if (err) {
+          throw err;
+        }
+  
         cb(result);
       });
   },

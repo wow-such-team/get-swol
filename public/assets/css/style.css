@@ -1,1 +1,125 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, rgb(236, 57, 26), rgb(250, 91, 91), rgb(253, 153, 153));
+}
 
+/* Login Page Styling */
+#login-row {
+    height: 65%;
+    min-width: 100%;    
+    margin-right: 0;
+}
+
+.signup-box {
+    margin: 25px;
+    padding: 35px;
+    position: relative;
+    width: 35%;
+    margin-left: 8%;
+    margin-right: 4%;
+}
+
+.signup-form {
+    border: 3px solid white;
+    display: block;
+    margin: auto;
+    margin-top: 3%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    padding: 15px;
+    background-color: white;
+}
+
+.login-card-header {
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#register-form {
+    background-color: rgb(99, 94, 94);
+    border: none;
+    color: white;
+}
+
+#register-box {
+    padding: 0;
+}
+
+.btn-block {
+    border: 2px solid rgb(236, 57, 26);
+
+}
+
+#registerNewUser {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(250, 94, 66);
+    border: none;
+}
+
+.jumbotron {
+    margin: 0;
+    height: 35%;
+    min-width: 100%;
+    background-image: url(./jumbotron-image.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.jumbotron-text {
+    font-weight: bolder;
+    color: white;
+    font-size: 45px;
+    text-align: center;
+}
+
+#jumbtotron-subtext {
+    color: white;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.5rem
+}
+
+/* Navigate Page Styling */
+#backgroundHome {
+    height: 100%;
+    width: 60%;
+    float: right;
+}
+/* .whiteFont {
+    color: white;
+} */
+
+/* .picLink {
+    float: right;
+    height: 90%;
+    width: auto;
+} */
+.blockSummary {
+    float: left;
+    font-size: 30px;
+    margin-top: 5%;
+}
+.navigateBlock {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: white;
+    margin: 5%;
+    margin-right: 15%;
+    padding: 20px; 
+    width: 90%;
+    height: 150px;
+    float: right;
+    display: block;
+
+  }
+
+  #side {
+      height: 100%;
+      width: 40%;
+      background-color: rgb(99, 94, 94);
+  }
