@@ -1,90 +1,96 @@
-{{!-- Select Month --}}
+{<body>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Workouts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Exercises</a>
+        </li>
+    </ul>
+<br>
+<br>
 
-<h2>Hi, {{name}}</h2>
-
-<div class="form-group" id = "select-month">
-    <label for="exampleFormControlSelect1">Select Month</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>January</option>
-      <option>Feb</option>
-      <option>March</option>
-      <option>April</option>
-      <option>May</option>
-      <option>June</option>
-      <option>July</option>
-      <option>August</option>
-      <option>Sept</option>
-      <option>Oct</option>
-      <option>Nov</option>
-      <option>Dec</option>
-    </select>
-  </div>
-
-  {{!-- Enter Week # --}}
-<div class="form-group">
-    <label for="exampleFormControlSelect1">Week Number</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-  </div>
-
-
+  <!-- User Profile -->
 <div class="row">
-      {{!-- Days of the Week --}}
-    <div class="col-md-5" id = "daysofweek">
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Monday</h5>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Your Saved Workouts</h5>
+              <div class= "saved-workouts">
+                  <p class="card-text">Will Append with saved workouts</p>
+              </div>
+              <p class="card-text"></p>
+              <a href="#" class="btn btn-primary" id= "button1">Sunday</a>
+              <a href="#" class="btn btn-primary" id= "button2">Monday</a>
+              <a href="#" class="btn btn-primary" id= "button3">Tuesday</a>
+              <a href="#" class="btn btn-primary" id= "button4">Wednesday</a>
+              <a href="#" class="btn btn-primary" id= "button5">Thursday</a>
+              <a href="#" class="btn btn-primary" id= "button6">Friday</a>
+              <a href="#" class="btn btn-primary" id= "button7">Saturday</a>
+            </div>
+          </div>
         </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Tuesday</h5>
-        </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Wednesday</h5>
-        </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Thursday</h5>
-        </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Friday</h5>
-        </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Saturday</h5>
-        </div>
-        </div>
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Sunday</h5>
-        </div>
-        </div>
-        </div>
-        
-    {{!-- Favorites Column --}}
-        <div class="col-md-5" id = "favorites-col">
-        <div class="card" >
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        </div>
-    </div>
-</div>
+      </div>
 
+<br>
+  <!-- Weekly Workouts -->
+  <div class="card-group">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Sunday</h5>
+            <p class="card-text" id= "sunday_data"></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Monday</h5>
+            <p class="card-text" id ="monday_data"></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tuesday</h5>
+            <p class="card-text" id ="tuesday_data"></p>
+          </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Wednesay</h5>
+                <p class="card-text" id ="wednesday_data"></p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Thursday</h5>
+                <p class="card-text" id ="thursday_data"></p>
+            </div>      
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Friday</h5>
+                <p class="card-text" id ="friday_data"></p>
+            </div>    
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Saturday</h5>
+                <p class="card-text" id ="saturday_data"></p>
+            </div>    
+        </div>
+    
+    </div>
+<script>
+
+$("button1").on("click")
+
+</script>
+</body>
