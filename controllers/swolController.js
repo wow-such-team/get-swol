@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
+var keys = require("../config/keys.js");
+
+
 //Import model (workout.js) to use the database functions.
 var workout = require("../models/workout.js");
 
@@ -12,6 +15,7 @@ router.get("/", function(req, res) {
 router.get("/favorites", function(req, res) {
     res.render("favorites");
 });
+
 
 router.get("/navigate", function(req, res) {
   res.render("navigate")
@@ -38,6 +42,7 @@ router.get("/navigate", function(req, res) {
 // passport.serializeUser(function(user, cb) {
 //     cb(null, user);
 //   });
+
   
 // passport.deserializeUser(function(obj, cb) {
 //     cb(null, obj);
@@ -60,7 +65,7 @@ router.get("/navigate", function(req, res) {
 
   //When the new user signs up
   router.post("/api/users", function(req, res) {
-    workout.create(["username", "email", "password", "fullName"
+    workout.createUser(["username", "email", "password", "fullName"
     ], [
       req.body.username, req.body.email, req.body.password, req.body.fullName
     ], function(result) {
@@ -74,7 +79,7 @@ router.get("/navigate", function(req, res) {
     var password = req.body.password;
     var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
 
-    workout.verify(condition, function(result) {
+    workout.verifyUser(condition, function(result) {
       console.log(condition)
       if(result.length === 0) {
         console.log("not verified - username does not exist in users table")
