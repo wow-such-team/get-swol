@@ -2,6 +2,8 @@ var express = require("express");
 
 var router = express.Router();
 
+var keys = require("../config/keys.js");
+
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
@@ -17,8 +19,8 @@ var passport = require('passport')
 var Strategy = require('passport-facebook').Strategy;
 
 passport.use(new Strategy({
-    clientID: "883328152001251",
-    clientSecret: "b374221e853f607b9ef1223ad56fa01f",
+    clientID: keys.id,
+    clientSecret: keys.secret,
     callbackURL: "/return"
   },
   function(accessToken, refreshToken, profile, cb) {

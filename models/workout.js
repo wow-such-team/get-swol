@@ -2,8 +2,8 @@
 var orm = require("../config/orm.js");
 
 var workout = {
-  all: function(cb) {
-    orm.all("cats", function(res) {
+  allWO: function(cb) {
+    orm.all("workout", function(res) {
       cb(res);
     });
   },
@@ -21,6 +21,11 @@ var workout = {
   delete: function(condition, cb) {
     orm.delete("cats", condition, function(res) {
       cb(res);
+    });
+  },
+  joinPremadeToWO: function(condition, cb) {
+    orm.selectWhere("premadeWO", condition, function() {
+
     });
   }
 };
