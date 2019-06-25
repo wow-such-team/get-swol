@@ -1,13 +1,13 @@
-{<body>
+<body>
     <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link active" href="index">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Workouts</a>
+            <a class="nav-link" href="explore">Workouts</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Exercises</a>
+            <a class="nav-link" href="search">Exercises</a>
         </li>
     </ul>
 <br>
@@ -20,7 +20,18 @@
             <div class="card-body">
               <h5 class="card-title">Your Saved Workouts</h5>
               <div class= "saved-workouts">
-                  <p class="card-text">Will Append with saved workouts</p>
+                   <table class="table table-sm table-hover" id='saved-table'>
+                        <thead>
+                            <tr>
+                                <th scope="col">❤</th>
+                            </tr>
+                             <tr>
+                                <th scope="col">❤</th>
+                            </tr>
+                        </thead>
+                        <tbody id="saved-table-body">
+                        </tbody>
+                    </table>
               </div>
               <p class="card-text"></p>
               <a href="#" class="btn btn-primary" id= "button1">Sunday</a>
@@ -88,9 +99,5 @@
         </div>
     
     </div>
-<script>
 
-$("button1").on("click")
-
-</script>
 </body>
