@@ -21,6 +21,10 @@ router.get("/navigate", function(req, res) {
   res.render("navigate")
 });
 
+router.get("/search", function(req, res) {
+  res.render("search")
+});
+
 //Facebook authentication
 
 // var keys = require("../../../keys.js")
