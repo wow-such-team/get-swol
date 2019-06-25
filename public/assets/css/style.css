@@ -1,1 +1,68 @@
+#searchCSS{
+    background-image: url(../images/bodybuilding-close-up-dumbbells-260352.jpg);
+    color: black;
+}
 
+#search-bar {
+    position: relative;
+    float: left;
+    top: 5%;
+    width: 70%;
+    max-width: 800px;
+    border: 3px solid grey;
+    margin-left: 20%;
+    margin-bottom: 50px;
+    margin-right: 50%;
+}
+
+#search {
+    float: left;
+    width: 85%;
+    height: 35px;
+}
+
+#searchSubmit {
+    /* float: left; */
+    width: 5%;
+    padding: 0;
+    margin: 25;
+    width: 15%;
+    height: 35px;
+    color: white;
+    background-color: grey;
+    border-color: white;
+    font-weight: bolder;
+}
+
+#search-jumbotron{
+    width: 100%;
+    height: 35px;
+    padding: 15px;
+    text-align: center;
+    margin: 20px;
+}
+
+
+#search-save{
+    position: relative;
+    float: left;
+    top: 5%;
+    width: 85%;
+    max-width: 1000px;
+    margin-left: 15%;
+    margin-bottom: 50px;
+    margin-right: 40%;
+}
+
+#savedItems{
+    width: 5%;
+    margin-left: 15%;
+    margin-bottom: 50px;
+    margin-right: 40%;
+    width: 15%;
+    height: 35px;
+    color: white;
+    background-color: grey;
+    border-color: white;
+    font-weight: bolder;
+}

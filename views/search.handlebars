@@ -1,0 +1,50 @@
+<body id= "searchCSS">
+      <!-- Search Jumbotron -->
+  <div class="main-jumbotron" class="search-title" id="search-jumbotron">
+    <h1 class="display-4" >Workout Search</h1>
+    <p class="lead" id= "search-title2">Explore all workouts below!</p>
+    <br>
+    <!-- Search Bar -->
+    <form class="example" action="action_page.php" id="search-bar">
+      <input type="text" placeholder="Search All Exercises..." id="search">
+      <input class="btn" id="searchSubmit" type="submit" value="Go">
+    </form>
+  </div>
+
+ <br></br>
+ <br></br>
+
+<ul class="list-group" id = "search-save">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Cras justo odio
+    <button class="btn btn-light" id="favorite-button">❤</button>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Dapibus ac facilisis in
+    <button class="btn btn-light" id="favorite-button">❤</button>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Morbi leo risus
+    <button class="btn btn-light" id="favorite-button">❤</buttong>
+  </li>
+</ul>
+    
+    <br></br>
+    <div>
+    <input class="btn" id="savedItems" type="submit" value="View Saved Workouts">
+    </div>
+
+<script>
+   $("#searchSubmit").on("click", function(){
+        console.log("Searching Workout");
+    
+        
+    });
+   $("#favorite-button").on("click", function(){
+        console.log("clicked save workout");
+    
+        
+    });
+
+</script>
+</body>

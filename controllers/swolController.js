@@ -8,8 +8,16 @@ router.get("/", function(req, res) {
     res.render("index");
 });
 
+router.get("/search", function(req, res) {
+  res.render("search");
+});
+
 router.get("/favorites", function(req, res) {
     res.render("favorites");
+});
+
+router.get("/profile", function(req, res) {
+  res.render("profile");
 });
 
 //Facebook authentication?
