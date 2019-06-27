@@ -103,10 +103,9 @@ var orm = {
         cb(result);
       });
   },
-  createTable: function(tableName) {
+  createTable: function(tableName, listOfColumns, cb) {
       var queryString = "CREATE TABLE " + tableName;
-      queryString += " (";
-      queryString += "id INT NOT NULL AUTO_INCREMENT";
+      queryString += " (" + listOfColumns + ");";
 
       connection.query(queryString, function(err, result) {
           if(err) throw err;

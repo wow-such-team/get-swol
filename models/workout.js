@@ -2,11 +2,6 @@
 var orm = require("../config/orm.js");
 
 var workout = {
-  allWO: function(cb) {
-    orm.all("workout", function(res) {
-      cb(res);
-    });
-  },
   allUser: function(cb) {
     orm.all("users", function(res) {
       cb(res);
@@ -33,12 +28,39 @@ var workout = {
       cb(res);
     });
   },
-  joinPremadeToWO: function(condition, cb) {
-    orm.selectWhere("premadeWO", condition, function() {
+  allExercises: function(cb) {
+    orm.all("exercises", function(res) {
+      cb(res);
+    });
+  },
+  selectExerciseWhere: function(condition, cb) {
+    orm.selectWhere("exercises", condition, function(res) {
+      cb(res);
+    });
+  },
+  joinPremadeToWOById: function(woId, cb) {
 
+    orm.selectWhere("premadeWO", "id = '" + woId + "'", function(res) {
+      exercisesIdArr = res[0].exerciseList.split(",");
+      exercisesArr = [];
+
+      for(var i=0; i<exercisesIdArr.length; i++) {
+        exercisesIdArr[i] = parseInt(exercisesIdArr[i].trim());
+        
+        workout.selectExerciseWhere("id = '" + exercisesIdArr[i] + "'", function(result) {
+          exercisesArr.push(result[0]);
+          console.log(result);
+        });
+      };
+      
+      cb(exercisesArr);
     });
   }
 };
+
+workout.joinPremadeToWOById(3, function(res) {
+  console.log(res);
+});
 
 // Export the database functions for the controller (swolController.js).
 module.exports = workout;
