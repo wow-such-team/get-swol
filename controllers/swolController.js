@@ -16,7 +16,6 @@ router.get("/favorites", function(req, res) {
     res.render("favorites");
 });
 
-
 router.get("/navigate", function(req, res) {
   res.render("navigate")
 });
@@ -95,4 +94,9 @@ router.get("/search", function(req, res) {
       }
     });
   });
+
+  router.post("/api/premadeWO", function(req, res) {
+
+  });
+
 module.exports = router;
