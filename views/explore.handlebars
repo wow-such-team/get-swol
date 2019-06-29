@@ -1,6 +1,97 @@
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
+    aria-describedby="button-addon2">
   <div class="input-group-append">
     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
   </div>
+</div>
+
+{{!-- collapsible cards --}}
+<div class="accordion" id="exploreWOAccordion">
+
+  <div class="card">
+    <div class="card-header" id="headingFullBody">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFullBody"
+          aria-expanded="true" aria-controls="collapseFullBody">
+          Full Body Workouts
+        </button>
+      </h2>
+    </div>
+    <div id="collapseFullBody" class="collapse show" aria-labelledby="headingFullBody" data-parent="#exploreWOAccordion">
+      <div class="card-body">
+        <!--bullet point list of workouts -->
+        <li>
+          {{#each fullbody}}
+          {{/each}}
+        </li>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingCSB">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCSB"
+          aria-expanded="false" aria-controls="collapseCSB">
+          Chest/Shoulder/Back Workouts
+        </button>
+      </h2>
+    </div>
+    <div id="collapseCSB" class="collapse" aria-labelledby="headingCSB" data-parent="#exploreWOAccordion">
+      <div class="card-body">
+        {{!-- bullet point list of workouts --}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingCore">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseCore"
+          aria-expanded="false" aria-controls="collapseCore">
+          Core/Abs Workouts
+        </button>
+      </h2>
+    </div>
+    <div id="collapseCore" class="collapse" aria-labelledby="headingCore" data-parent="#exploreWOAccordion">
+      <div class="card-body">
+        {{!-- bullet point list of workouts --}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingArms">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseArms"
+          aria-expanded="true" aria-controls="collapseArms">
+          Arms Workouts
+        </button>
+      </h2>
+    </div>
+    <div id="collapseArms" class="collapse show" aria-labelledby="headingArms" data-parent="#exploreWOAccordion">
+      <div class="card-body">
+        {{!-- bullet point list of workouts --}}
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="headingLegs">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseLegs"
+          aria-expanded="false" aria-controls="collapseLegs">
+          Legs Workouts
+        </button>
+      </h2>
+    </div>
+    <div id="collapseLegs" class="collapse" aria-labelledby="headingLegs" data-parent="#exploreWOAccordion">
+      <div class="card-body">
+        {{!-- bullet point list of workouts --}}
+      </div>
+    </div>
+  </div>
+
 </div>

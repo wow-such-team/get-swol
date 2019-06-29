@@ -1,9 +1,6 @@
 var express = require("express");
 var router = express.Router();
 
-var keys = require("../config/keys.js");
-
-
 //Import model (workout.js) to use the database functions.
 var workout = require("../models/workout.js");
 
@@ -15,7 +12,6 @@ router.get("/", function(req, res) {
 router.get("/favorites", function(req, res) {
     res.render("favorites");
 });
-
 
 router.get("/navigate", function(req, res) {
   res.render("navigate")
@@ -99,6 +95,48 @@ router.get("/search", function(req, res) {
     });
   });
 
+  router.get("/explore", function(req, res) {
+
+    workout.allPremadeWO(function(result) {
+      var armsWOs = [];
+      var fullBodyWOs = [];
+      var legsWOs = [];
+      var coreWOs = [];
+      var csbWOs = [];
+      for(var i=0; i<result.length; i++) {
+        switch(result[i].WOType) {
+          case "full body":
+            fullBodyWOs.push(result[i]);
+            break;
+          case "arms":
+            armsWOs.push(result[i]);
+            break;
+          case "legs":
+            legsWOs.push(result[i]);
+            break;
+          case "chest/shoulders/back":
+            csbWOs.push(result[i]);
+            break;
+          case "core":
+            coreWOs.push(result[i]);
+            break;
+        }
+      };
+
+      var hbsObject = {
+        fullbody: fullBodyWOs,
+        arms: armsWOs,
+        legs: legsWOs,
+        csb: csbWOs,
+        core: coreWOs
+      };
+
+      console.log(hbsObject);
+      
+      res.render("explore", hbsObject);
+    });
+  });
+
   router.get("/navigate/:id", function(req, res) {
     var navigateUsername = {
       name: req.params.id
@@ -107,6 +145,5 @@ router.get("/search", function(req, res) {
     console.log(navigateUsername)
     res.render("navigate", navigateUsername)
   });
-
 
 module.exports = router;
