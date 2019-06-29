@@ -33,6 +33,11 @@ var workout = {
       cb(res);
     });
   },
+  allPremadeWO: function(cb) {
+    orm.all("premadeWO", function(res) {
+      cb(res);
+    });
+  },
   selectExerciseWhere: function(condition, cb) {
     orm.selectWhere("exercises", condition, function(res) {
       cb(res);
@@ -57,10 +62,6 @@ var workout = {
     });
   }
 };
-
-workout.joinPremadeToWOById(3, function(res) {
-  console.log(res);
-});
 
 // Export the database functions for the controller (swolController.js).
 module.exports = workout;
