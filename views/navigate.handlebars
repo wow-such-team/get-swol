@@ -1,19 +1,29 @@
-<div id="backgroundHome">
-    
-    <div class="navigateBlock">
-        <h1 class="blockSummary whiteFont" >Search for specific exercises</h1>
-        <a href="linkToSearch"><img class="picLink" src="dumbells.jpg"></img></a>
-    </div>
-    <div class="navigateBlock">
-        <h1 class="blockSummary whiteFont">Browse premade workouts</h1>
-        <a href="linkToExplore"><img class="picLink" src="groupYoga.jpg"></img></a>
-    </div>
-    <div class="navigateBlock">
-        <h1 class="blockSummary whiteFont">Return to your past workouts</h1>
-        <a href="linkToRecent"><img class="picLink" src="stairsClimb.jpg"></img></a>
-    </div>
-</div>  
+<h2 id = "user-name-header">Hi {{name}}!</h2>
 
-<div id="side">
-    <h3>Hi {{name}}!</h3>
+<div id="nav-side-bar"></div>
+
+<div class="card-deck">
+    <div class="nav-card card">
+    <div class="card-body">
+      <h5 class="nav-card-title card-title">Search</h5>
+      <p class="nav-card-text card-text">Search for specific exercises</p>
+        <a id = "search-link" class="nav-button btn btn-block">Search</a>
+    </div>
+  </div>
+    <div class="nav-card card">
+    <div class="card-body">
+      <h5 class="nav-card-title card-title">Explore</h5>
+      <p class="nav-card-text card-text">Explore pre-made workouts</p>
+        <a id = "explore-link" class="nav-button btn btn-block">Explore</a>
+    </div>
+  </div>
+  <div class="nav-card card">
+    <div class="card-body">
+      <h5 class="nav-card-title card-title">My Workouts</h5>
+      <p class="nav-card-text card-text">View saved exercises and create a personalized workout plan</p>
+        <a id = "saved-workout-link" class="nav-button btn btn-block">My Workouts</a>
+    </div>
+  </div>
 </div>
+
+
