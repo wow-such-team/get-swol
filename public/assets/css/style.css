@@ -3,7 +3,7 @@ body, html {
     width: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, rgb(236, 57, 26), rgb(250, 91, 91), rgb(253, 153, 153));
+    background: linear-gradient(to right, rgb(236, 57, 26), rgb(248, 208, 208), rgb(253, 153, 153));
 }
 
 /* Login Page Styling */
@@ -86,40 +86,58 @@ body, html {
 }
 
 /* Navigate Page Styling */
-#backgroundHome {
+#nav-background {
+    background-image: url("./stairsClimb.jpg");
+    width: 30%;
     height: 100%;
-    width: 60%;
-    float: right;
+    background: no-repeat;
 }
-/* .whiteFont {
-    color: white;
-} */
 
-/* .picLink {
+.nav-buttons {
+    width: 70%;
     float: right;
-    height: 90%;
-    width: auto;
-} */
-.blockSummary {
-    float: left;
-    font-size: 30px;
-    margin-top: 5%;
 }
-.navigateBlock {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: white;
-    margin: 5%;
-    margin-right: 15%;
-    padding: 20px; 
-    width: 90%;
-    height: 150px;
-    float: right;
+
+#user-name-header {
     display: block;
+    height: 15%;
+    text-align: center;
+    padding: 8%;
+    font-size: 60px;
+}
 
-  }
+#nav-side-bar{
+    background-image: url("./nav-page-background.jpg");
+    position: fixed;
+    bottom: 0;
+    height: 60%;
+    width: 100%;
+}
 
-  #side {
-      height: 100%;
-      width: 40%;
-      background-color: rgb(99, 94, 94);
-  }
+.card-deck {
+    position: absolute;
+    width: 90%;
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+
+.nav-card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav-card-title {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.nav-card-text{
+    text-align: center;
+    margin-bottom: 30;
+}
+
+.card-body{
+    min-height: 50px;
+}
