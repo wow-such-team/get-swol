@@ -84,6 +84,8 @@ router.get("/search", function(req, res) {
     var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
 
     workout.verifyUser(condition, function(result) {
+      var userDisplayName = result[0].username
+      
       console.log(condition)
       if(result.length === 0) {
         console.log("not verified - username does not exist in users table")
@@ -91,8 +93,20 @@ router.get("/search", function(req, res) {
       }
       else {
         console.log('verified. Username exists in users table');
-        res.json({redirect: "/navigate"})
+        console.log(result[0].fullname)
+        res.json({redirect: "/navigate/" + userDisplayName})
       }
     });
   });
+
+  router.get("/navigate/:id", function(req, res) {
+    var navigateUsername = {
+      name: req.params.id
+    }
+    
+    console.log(navigateUsername)
+    res.render("navigate", navigateUsername)
+  });
+
+
 module.exports = router;
