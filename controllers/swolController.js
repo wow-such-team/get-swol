@@ -1,5 +1,7 @@
 var express = require("express");
 var router = express.Router();
+var bcrypt = require("bcrypt");
+var saltRounds = 10;
 
 //Import model (workout.js) to use the database functions.
 var workout = require("../models/workout.js");
@@ -17,59 +19,25 @@ router.get("/navigate", function(req, res) {
   res.render("navigate")
 });
 
-router.get("/search", function(req, res) {
+router.get("/search/:id", function(req, res) {
   res.render("search")
 });
 
-//Facebook authentication
-
-// var keys = require("../../../keys.js")
-// var express = require("express");
-// var passport = require('passport')
-// var Strategy = require('passport-facebook').Strategy;
-
-
-// passport.use(new Strategy({
-//     clientID: "883328152001251",
-//     clientSecret: "8811809cee5f20db1895e7e0f479569a",
-//     callbackURL: "/return",
-//     profileFields: ["id", "displayName", "email"]
-//   },
-//   function(accessToken, refreshToken, profile, cb) {
-//     return cb(null, profile);
-// }));
-
-// passport.serializeUser(function(user, cb) {
-//     cb(null, user);
-//   });
-
-  
-// passport.deserializeUser(function(obj, cb) {
-//     cb(null, obj);
-//   });
-
-// router.use(passport.initialize());
-// router.use(passport.session());
-
-// router.get('/login/facebook', passport.authenticate('facebook'));
-
-
-// router.get('/return',
-//   passport.authenticate('facebook', { failureRedirect: '/'}),
-//   function(req, res) {
-//     // Successful authentication, redirect home.
-//     var user = req.user.id;
-//     res.redirect('/favorites/'+ user);
-//   }
-//   );
-
   //When the new user signs up
   router.post("/api/users", function(req, res) {
-    workout.createUser(["username", "email", "password", "fullName"
-    ], [
-      req.body.username, req.body.email, req.body.password, req.body.fullName
-    ], function(result) {
-      res.json({ id: result.insertID });
+    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+      console.log("hash: " + hash)
+      var hashpw = hash.replace("/", "*****");
+        workout.createUser(["username", "email", "password", "firstname", "lastname"
+      ], [
+        req.body.username, req.body.email, hashpw, req.body.firstName, req.body.lastName
+      ], function(data) {
+        if(data) {
+          // res.json( { id: data.insertID })
+          // console.log("data = " + data)
+          res.json({ redirect: "/navigate/" + hashpw});
+        }
+      });
     });
   });
 
@@ -77,25 +45,36 @@ router.get("/search", function(req, res) {
   router.post("/api/users_verify", function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
+    var condition = "username = '" + username + "'";
 
     workout.verifyUser(condition, function(result) {
-      var userDisplayName = result[0].username
-      
-      console.log(condition)
+      console.log(condition);
+      console.log(result)
+    
       if(result.length === 0) {
-        console.log("not verified - username does not exist in users table")
-        res.status(200).json({redirect: "/"});
+        console.log("result.length = " + result.length)
+        var error = {
+          errorMessage: "*username does not exist"
+        };
+        // res.render ("index", error)
+        res.json({ redirect: "/error"});
       }
       else {
-        console.log('verified. Username exists in users table');
-        console.log(result[0].fullname)
-        res.json({redirect: "/navigate/" + userDisplayName})
+        var pw = result[0].password
+        var pwcompare = pw.replace("*****", "/")
+        bcrypt.compare(password, pwcompare, function(err, results) {
+          if (results === true) {
+            res.json ({ redirect: "/navigate/" + result[0].password})
+          }
+          else {
+            res.json({ redirect: "/errorpw"})
+          }
+        })
       }
-    });
+    })
   });
 
-  router.get("/explore", function(req, res) {
+  router.get("/explore/:id", function(req, res) {
 
     workout.allPremadeWO(function(result) {
       var armsWOs = [];
@@ -138,12 +117,40 @@ router.get("/search", function(req, res) {
   });
 
   router.get("/navigate/:id", function(req, res) {
-    var navigateUsername = {
-      name: req.params.id
-    }
-    
-    console.log(navigateUsername)
-    res.render("navigate", navigateUsername)
+    var pwhash = req.params.id
+    console.log(pwhash);
+    var condition = "password = '" + pwhash + "'";
+    workout.verifyUser(condition, function(result) {
+      console.log(condition);
+      console.log(result)
+      var navigateUsername = {
+        name: result[0].firstname
+      }
+      res.render("navigate", navigateUsername)
+    })
   });
+
+  router.get("/error", function(req, res) {
+    var error = {
+      errorMessage: "*username does not exists. Please register."}
+      res.render("index", error)
+  });
+  router.get("/errorpw", function(req, res) {
+    var error = {
+      errorMessage: "*password is incorrect"}
+      res.render("index", error)
+  });
+
+  router.get("/navigate/:id/search", function(req, res) {
+    var id = req.params.id
+    console.log(id)
+    res.json({ redirect: "/search/" + id})
+  })
+
+  router.get("/navigate/:id/explore", function(req, res) {
+    var id = req.params.id
+    console.log(id)
+    res.json({ redirect: "/explore/" + id})
+  })
 
 module.exports = router;
