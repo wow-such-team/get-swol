@@ -16,4 +16,37 @@ $(function() {
             }
         )
     });
+
+    //Nav Bar Functionality
+    $("#home-page").on("click", function(event) {
+        event.preventDefault();
+        $.ajax(window.location.pathname + "/nav/search", {
+            type: "GET"
+        }).then(
+            function(response){
+                window.location = response.redirect;
+            }
+        )
+    })
+    $("#workouts-page").on("click", function(event) {
+        event.preventDefault();
+        $.ajax(window.location.pathname + "/nav/explore", {
+            type: "GET"
+        }).then(
+            function(response){
+                window.location = response.redirect;
+            }
+        )
+    })
+    $("#exercises-page").on("click", function(event) {
+        event.preventDefault();
+        $.ajax(window.location.pathname + "/nav/favorites", {
+            type: "GET"
+        }).then(
+            function(response){
+                window.location = response.redirect;
+            }
+        )
+    })
+
 })
