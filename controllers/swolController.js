@@ -42,59 +42,35 @@ router.get("/search/:id", function(req, res) {
 });
 
 //When a returning user logs in
-router.post("/api/users_verify", function (req, res) {
+router.post("/api/users_verify", function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-  var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
-
-  workout.verifyUser(condition, function (result) {
-    var userDisplayName = result[0].username
-
-    console.log(condition)
-    if (result.length === 0) {
-      console.log("not verified - username does not exist in users table")
-      res.status(200).json({ redirect: "/" });
+  var condition = "username = '" + username + "'";
+  workout.verifyUser(condition, function(result) {
+    console.log(condition);
+    console.log(result)
+  
+    if(result.length === 0) {
+      console.log("result.length = " + result.length)
+      var error = {
+        errorMessage: "*username does not exist"
+      };
+      // res.render ("index", error)
+      res.json({ redirect: "/error"});
     }
     else {
-      console.log('verified. Username exists in users table');
-      console.log(result[0].fullname)
-      res.json({ redirect: "/navigate/" + userDisplayName })
+      var pw = result[0].password
+      var pwcompare = pw.replace("*****", "/")
+      bcrypt.compare(password, pwcompare, function(err, results) {
+        if (results === true) {
+          res.json ({ redirect: "/navigate/" + result[0].password})
+        }
+        else {
+          res.json({ redirect: "/errorpw"})
+        }
+      })
     }
-  });
-});
-
-  //When a returning user logs in
-  router.post("/api/users_verify", function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var condition = "username = '" + username + "'";
-
-    workout.verifyUser(condition, function(result) {
-      console.log(condition);
-      console.log(result)
-    
-      if(result.length === 0) {
-        console.log("result.length = " + result.length)
-        var error = {
-          errorMessage: "*username does not exist"
-        };
-        // res.render ("index", error)
-        res.json({ redirect: "/error"});
-      }
-      else {
-        var pw = result[0].password
-        var pwcompare = pw.replace("*****", "/")
-        bcrypt.compare(password, pwcompare, function(err, results) {
-          if (results === true) {
-            res.json ({ redirect: "/navigate/" + result[0].password})
-          }
-          else {
-            res.json({ redirect: "/errorpw"})
-          }
-        })
-      }
-    })
-  });
+  })
 });
 
 
@@ -148,7 +124,6 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
   })
 
   router.get("/explore/:id", function(req, res) {
-
     workout.allPremadeWO(function(result) {
       var armsWOs = [];
       var fullBodyWOs = [];
@@ -174,15 +149,18 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
             break;
         }
       };
-
       var hbsObject = {
-        exercise: response
+        fullbody: fullBodyWOs,
+        arms: armsWOs,
+        legs: legsWOs,
+        csb: csbWOs,
+        core: coreWOs
       };
-  
-      res.render("premadeWO", hbsObject);
-    });    
-  });  
-});
+      console.log(hbsObject);
+      
+      res.render("explore", hbsObject);
+    });
+  });
 
 
   router.get("/navigate/:id", function(req, res) {
