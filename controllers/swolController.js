@@ -210,6 +210,10 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
     var id = req.params.id
     res.json({ redirect: "/favorites/" + id})
   })
+  router.get("/search/:id/nav/login", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/"})
+  })
   router.get("/explore/:id/nav/search", function(req, res) {
     var id = req.params.id
     res.json({ redirect: "/search/" + id})
@@ -217,6 +221,10 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
   router.get("/explore/:id/nav/favorites", function(req, res) {
     var id = req.params.id
     res.json({ redirect: "/favorites/" + id})
+  })
+  router.get("/explore/:id/nav/login", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/"})
   })
   router.get("/favorites/:id/nav/search", function(req, res) {
     var id = req.params.id
@@ -226,6 +234,10 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
     var id = req.params.id
     res.json({ redirect: "/explore/" + id})
   })
- 
+  router.get("/favorites/:id/nav/login", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/"})
+  })
+
 
 module.exports = router;

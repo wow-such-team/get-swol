@@ -48,5 +48,15 @@ $(function() {
             }
         )
     })
+    $("#login-page").on("click", function(event) {
+        event.preventDefault();
+        $.ajax(window.location.pathname + "/nav/login", {
+            type: "GET"
+        }).then(
+            function(response){
+                window.location = response.redirect;
+            }
+        )
+    })
 
 })
