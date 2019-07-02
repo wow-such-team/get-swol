@@ -17,7 +17,10 @@
     <form role="form" class = "signup-form" id = "register-form">
       <div class="form-group">
         <div class = "login-card-header" class="card-header">Register!</div>
-        <input type="text" id="newname" class="form-control input-lg" placeholder="Full Name">
+        <input type="text" id="newfirstname" class="form-control input-lg" placeholder="First Name">
+      </div>
+      <div class="form-group">
+        <input type="text" id="newlastname" class="form-control input-lg" placeholder="Last Name">
       </div>
       <div class="form-group">
         <input type="email" id="newemail" class="form-control input-lg" placeholder="Email">
@@ -46,6 +49,7 @@
           <input type="password" id="password" class="form-control input-lg" placeholder="Password">
         </div>
       <button id = "returningUser" class="btn btn-outline-dark btn-block">Login</button>
+      <p id = "sign-in-user-message"> {{errorMessage}}</p>
       </form>	
   </div>
 </div>

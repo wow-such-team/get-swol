@@ -6,7 +6,8 @@ $(function() {
     $("#registerNewUser").on("click", function(event) {
         event.preventDefault();
         var newUser = {
-            fullName: $("#newname").val().trim(),
+            firstName: $("#newfirstname").val().trim(),
+            lastName: $("#newlastname").val().trim(),
             email: $("#newemail").val().trim(),
             username: $("#newusername").val().trim(),
             password: $("#newpassword").val().trim()
@@ -17,9 +18,9 @@ $(function() {
             type: "POST",
             data: newUser
         }).then(
-            function() {
+            function(response) {
                 console.log("created new user");
-                location.reload();
+                window.location = response.redirect
             }
         );
     }),
