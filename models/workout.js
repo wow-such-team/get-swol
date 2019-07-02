@@ -56,6 +56,16 @@ var workout = {
     orm.selectWhereIn("exercises", column, conditionArr, function(res) {
       cb(res);
     });
+  },
+  createUserTable: function(tableName, cb) {
+    var listOfColumns = "id INT NOT NULL AUTO_INCREMENT, ";
+    listOfColumns += 'refTable ENUM("premadeWO", "exercises"), ';
+    listOfColumns += 'refID INT NOT NULL, ';
+    listOfColumns += 'PRIMARYKEY(id)';
+    
+    orm.createTable(tableName, listOfColumns, function(res) {
+      cb(res);
+    });
   }
 };
 
