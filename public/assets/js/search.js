@@ -1,6 +1,7 @@
 $(function() {
     $(".dropdown-item").on('click', function(event) {
         event.preventDefault();
+        $("#search-save").empty();
         var searchedExercise = {
             exerciseSearch: $(this).text().trim()
         }
