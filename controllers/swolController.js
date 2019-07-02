@@ -11,12 +11,8 @@ router.get("/", function (req, res) {
   res.render("index");
 });
 
-router.get("/favorites", function (req, res) {
+router.get("/favorites/:id", function (req, res) {
   res.render("favorites");
-});
-
-router.get("/navigate", function (req, res) {
-  res.render("navigate")
 });
 
 router.get("/search/:id", function(req, res) {
@@ -27,7 +23,7 @@ router.get("/search/:id", function(req, res) {
   router.post("/api/users", function(req, res) {
     bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
       console.log("hash: " + hash)
-      var hashpw = hash.replace("/", "*****");
+      var hashpw = hash.split("/").join("*****");
         workout.createUser(["username", "email", "password", "firstname", "lastname"
       ], [
         req.body.username, req.body.email, hashpw, req.body.firstName, req.body.lastName
@@ -60,7 +56,7 @@ router.post("/api/users_verify", function(req, res) {
     }
     else {
       var pw = result[0].password
-      var pwcompare = pw.replace("*****", "/")
+      var pwcompare = pw.spit("*****").join("/")
       bcrypt.compare(password, pwcompare, function(err, results) {
         if (results === true) {
           res.json ({ redirect: "/navigate/" + result[0].password})
@@ -198,6 +194,12 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
     var id = req.params.id
     console.log(id)
     res.json({ redirect: "/explore/" + id})
+  })
+
+  router.get("/navigate/:id/favorites", function(req, res) {
+    var id = req.params.id
+    console.log(id)
+    res.json({ redirect: "/favorites/" + id})
   })
 
  

@@ -25,4 +25,17 @@ $(function() {
             }
         )
     });
+
+    $("#saved-workout-link").on("click", function(event) {
+        event.preventDefault();
+        var pathname = window.location.pathname;
+        console.log(pathname);
+        $.ajax(pathname + "/favorites", {
+            type: "GET",
+        }).then(
+            function(response){
+                window.location = response.redirect
+            }
+        )
+    });
 })
