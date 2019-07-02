@@ -7,15 +7,15 @@ var saltRounds = 10;
 var workout = require("../models/workout.js");
 
 // Create all our routes and set up logic within those routes where required.
-router.get("/", function(req, res) {
-    res.render("index");
+router.get("/", function (req, res) {
+  res.render("index");
 });
 
-router.get("/favorites", function(req, res) {
-    res.render("favorites");
+router.get("/favorites", function (req, res) {
+  res.render("favorites");
 });
 
-router.get("/navigate", function(req, res) {
+router.get("/navigate", function (req, res) {
   res.render("navigate")
 });
 
@@ -39,7 +39,29 @@ router.get("/search/:id", function(req, res) {
         }
       });
     });
+});
+
+//When a returning user logs in
+router.post("/api/users_verify", function (req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
+
+  workout.verifyUser(condition, function (result) {
+    var userDisplayName = result[0].username
+
+    console.log(condition)
+    if (result.length === 0) {
+      console.log("not verified - username does not exist in users table")
+      res.status(200).json({ redirect: "/" });
+    }
+    else {
+      console.log('verified. Username exists in users table');
+      console.log(result[0].fullname)
+      res.json({ redirect: "/navigate/" + userDisplayName })
+    }
   });
+});
 
   //When a returning user logs in
   router.post("/api/users_verify", function(req, res) {
@@ -73,6 +95,28 @@ router.get("/search/:id", function(req, res) {
       }
     })
   });
+});
+
+
+router.get("/premadeWO/:workoutID/:id", function(req, res) {
+  var woID = parseInt(req.params.workoutID);
+  console.log("workout ID: " + woID);
+
+  workout.selectPremadeWoWhere("id =" + woID,  function(result) {
+    console.log("id result " + result);
+
+    workout.selectExerciseWhereIn("id", result.exerciseList, function(response) {
+      console.log(response);
+      
+      var hbsObject = {
+        exercise: response
+      };
+  
+      res.render("premadeWO", hbsObject);
+    });    
+  });  
+});
+      
 
   router.post("/search/:id", function(req, res) {
     var searchWorkout = req.body.exerciseSearch;
@@ -132,18 +176,14 @@ router.get("/search/:id", function(req, res) {
       };
 
       var hbsObject = {
-        fullbody: fullBodyWOs,
-        arms: armsWOs,
-        legs: legsWOs,
-        csb: csbWOs,
-        core: coreWOs
+        exercise: response
       };
+  
+      res.render("premadeWO", hbsObject);
+    });    
+  });  
+});
 
-      console.log(hbsObject);
-      
-      res.render("explore", hbsObject);
-    });
-  });
 
   router.get("/navigate/:id", function(req, res) {
     var pwhash = req.params.id

@@ -21,11 +21,11 @@
     <div id="collapseFullBody" class="collapse show" aria-labelledby="headingFullBody" data-parent="#exploreWOAccordion">
       <div class="card-body">
         <!--bullet point list of workouts -->
+        {{#each fullbody}}
         <li>
-          {{#each fullbody}}
-          {{/each}}
+          <a class="premadeWOs" id={{id}}>{{name}}</a>
         </li>
-        
+        {{/each}}
       </div>
     </div>
   </div>
@@ -42,6 +42,11 @@
     <div id="collapseCSB" class="collapse" aria-labelledby="headingCSB" data-parent="#exploreWOAccordion">
       <div class="card-body">
         {{!-- bullet point list of workouts --}}
+        {{#each csb}}
+        <li>
+          <a class="premadeWOs" id={{id}}>{{name}}</a>
+        </li>
+        {{/each}}
       </div>
     </div>
   </div>
@@ -58,6 +63,11 @@
     <div id="collapseCore" class="collapse" aria-labelledby="headingCore" data-parent="#exploreWOAccordion">
       <div class="card-body">
         {{!-- bullet point list of workouts --}}
+        {{#each core}}
+        <li>
+          <a class="premadeWOs" id={{id}}>{{name}}</a>
+        </li>
+        {{/each}}
       </div>
     </div>
   </div>
@@ -74,6 +84,11 @@
     <div id="collapseArms" class="collapse show" aria-labelledby="headingArms" data-parent="#exploreWOAccordion">
       <div class="card-body">
         {{!-- bullet point list of workouts --}}
+        {{#each arms}}
+        <li>
+          <a class="premadeWOs" id={{id}}>{{name}}</a>
+        </li>
+        {{/each}}
       </div>
     </div>
   </div>
@@ -90,6 +105,11 @@
     <div id="collapseLegs" class="collapse" aria-labelledby="headingLegs" data-parent="#exploreWOAccordion">
       <div class="card-body">
         {{!-- bullet point list of workouts --}}
+        {{#each legs}}
+        <li>
+          <a class="premadeWOs" id={{id}}>{{name}}</a>
+        </li>
+        {{/each}}
       </div>
     </div>
   </div>
