@@ -56,7 +56,7 @@ router.post("/api/users_verify", function(req, res) {
     }
     else {
       var pw = result[0].password
-      var pwcompare = pw.spit("*****").join("/")
+      var pwcompare = pw.split("*****").join("/")
       bcrypt.compare(password, pwcompare, function(err, results) {
         if (results === true) {
           res.json ({ redirect: "/navigate/" + result[0].password})
@@ -202,6 +202,30 @@ router.get("/premadeWO/:workoutID/:id", function(req, res) {
     res.json({ redirect: "/favorites/" + id})
   })
 
+  router.get("/search/:id/nav/explore", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/explore/" + id})
+  })
+  router.get("/search/:id/nav/favorites", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/favorites/" + id})
+  })
+  router.get("/explore/:id/nav/search", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/search/" + id})
+  })
+  router.get("/explore/:id/nav/favorites", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/favorites/" + id})
+  })
+  router.get("/favorites/:id/nav/search", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/search/" + id})
+  })
+  router.get("/favorites/:id/nav/explore", function(req, res) {
+    var id = req.params.id
+    res.json({ redirect: "/explore/" + id})
+  })
  
 
 module.exports = router;
