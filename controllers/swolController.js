@@ -74,6 +74,35 @@ router.get("/search/:id", function(req, res) {
     })
   });
 
+  router.post("/search/:id", function(req, res) {
+    var searchWorkout = req.body.exerciseSearch;
+    console.log(searchWorkout);
+
+
+    res.json({redirect: "/search/" + req.params.id + "/" + searchWorkout})
+  })
+
+  router.post("/search/:id/:muscletype", function(req, res) {
+    var searchWorkout = req.body.exerciseSearch;
+    res.json({redirect: "/search/" + req.params.id + "/" + searchWorkout})
+  })
+
+  router.get("/search/:id/:muscletype", function(req, res) {
+    var muscleType = req.params.muscletype;
+    var condition = "muscles = ' " + muscleType + "'";
+
+    workout.selectExerciseWhere(condition, function(result) {
+      console.log(condition);
+      console.log(result)
+      var exerciseName = {
+        exercises: result
+      };
+      console.log(exerciseName)
+      res.render("search", exerciseName)
+    })
+
+  })
+
   router.get("/explore/:id", function(req, res) {
 
     workout.allPremadeWO(function(result) {
@@ -152,5 +181,7 @@ router.get("/search/:id", function(req, res) {
     console.log(id)
     res.json({ redirect: "/explore/" + id})
   })
+
+ 
 
 module.exports = router;
