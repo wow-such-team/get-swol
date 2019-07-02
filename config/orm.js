@@ -1,55 +1,55 @@
 var connection = require("./connection.js");
 
 function printQuestionMarks(num) {
-    var arr = [];
+  var arr = [];
 
-    for(var i=0; i<num; i++) {
-        arr.push("?");
-    };
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  };
 
-    return arr.toString();
+  return arr.toString();
 };
 
 function objToSql(ob) {
-    var arr =[];
+  var arr = [];
 
-    for(var key in ob) {
-        var value = ob[key];
+  for (var key in ob) {
+    var value = ob[key];
 
-        if(Object.hasOwnProperty.call(ob, key)) {
-            if(typeof value === "string" && value.indexOf(" ") >= 0) {
-                value = "'" + value + "'";
-            };
+    if (Object.hasOwnProperty.call(ob, key)) {
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      };
 
-            arr.push(key + "=" + value);
-        };
+      arr.push(key + "=" + value);
     };
+  };
 
-    return arr.toString();
+  return arr.toString();
 };
 
 var orm = {
-    all: function(tableInput, callback) {
-        var queryString = "SELECT * FROM " + tableInput + ";";
-        connection.query(queryString, function(err, result) {
-            if(err) throw err;
+  all: function (tableInput, callback) {
+    var queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function (err, result) {
+      if (err) throw err;
 
-            callback(result);
-        });
-    },
-    create: function(table, cols, vals, cb) {
-        var queryString = "INSERT INTO " + table;
+      callback(result);
+    });
+  },
+  create: function (table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
 
-        queryString += " (";
-        queryString += cols.toString();
-        queryString += ") ";
-        queryString += "VALUES (";
-        queryString+= printQuestionMarks(vals.length);
-        queryString += ") ";
-        
-        console.log(queryString);
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
 
-    connection.query(queryString, vals, function(err, result) {
+    console.log(queryString);
+
+    connection.query(queryString, vals, function (err, result) {
       if (err) {
         throw err;
       }
@@ -58,7 +58,7 @@ var orm = {
     });
   },
   // An example of objColVals would be {name: panther, sleepy: true}
-  update: function(table, objColVals, condition, cb) {
+  update: function (table, objColVals, condition, cb) {
     var queryString = "UPDATE " + table;
 
     queryString += " SET ";
@@ -67,7 +67,7 @@ var orm = {
     queryString += condition;
 
     console.log(queryString);
-    connection.query(queryString, function(err, result) {
+    connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
       }
@@ -75,12 +75,12 @@ var orm = {
       cb(result);
     });
   },
-  delete: function(table, condition, cb) {
+  delete: function (table, condition, cb) {
     var queryString = "DELETE FROM " + table;
     queryString += " WHERE ";
     queryString += condition;
 
-    connection.query(queryString, function(err, result) {
+    connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
       }
@@ -88,42 +88,42 @@ var orm = {
       cb(result);
     });
   },
-  selectWhere: function(table, condition, cb) {
-      var queryString = "SELECT * FROM " + table;
-      queryString += " WHERE ";
-      queryString += condition;
-  
-      // console.log(queryString);
+  selectWhere: function (table, condition, cb) {
+    var queryString = "SELECT * FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
 
-      connection.query(queryString, function(err, result) {
-        if (err) {
-          throw err;
-        }
-  
-        cb(result);
-      });
+    // console.log(queryString);
+
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
   },
-  selectWhereIn: function(table, column, conditionArr, cb) {
-    
+  selectWhereIn: function (table, column, conditionArr, cb) {
+
     var queryString = "SELECT * FROM " + table;
     queryString += " WHERE " + column;
     queryString += " IN " + "(" + conditionArr + ");";
 
-    connection.query(queryString, function(err, result) {
+    connection.query(queryString, function (err, result) {
       if (err) throw err;
 
       cb(result);
     });
   },
-  createTable: function(tableName, listOfColumns, cb) {
-      var queryString = "CREATE TABLE " + tableName;
-      queryString += " (" + listOfColumns + ");";
+  createTable: function (tableName, listOfColumns, cb) {
+    var queryString = "CREATE TABLE " + tableName;
+    queryString += " (" + listOfColumns + ");";
 
-      connection.query(queryString, function(err, result) {
-          if(err) throw err;
+    connection.query(queryString, function (err, result) {
+      if (err) throw err;
 
-          cb(result);
-      });
+      cb(result);
+    });
   }
 };
 
