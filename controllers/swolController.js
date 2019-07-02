@@ -5,19 +5,19 @@ var router = express.Router();
 var workout = require("../models/workout.js");
 
 // Create all our routes and set up logic within those routes where required.
-router.get("/", function(req, res) {
-    res.render("index");
+router.get("/", function (req, res) {
+  res.render("index");
 });
 
-router.get("/favorites", function(req, res) {
-    res.render("favorites");
+router.get("/favorites", function (req, res) {
+  res.render("favorites");
 });
 
-router.get("/navigate", function(req, res) {
+router.get("/navigate", function (req, res) {
   res.render("navigate")
 });
 
-router.get("/search", function(req, res) {
+router.get("/search", function (req, res) {
   res.render("search")
 });
 
@@ -43,7 +43,7 @@ router.get("/search", function(req, res) {
 //     cb(null, user);
 //   });
 
-  
+
 // passport.deserializeUser(function(obj, cb) {
 //     cb(null, obj);
 //   });
@@ -63,87 +63,106 @@ router.get("/search", function(req, res) {
 //   }
 //   );
 
-  //When the new user signs up
-  router.post("/api/users", function(req, res) {
-    workout.createUser(["username", "email", "password", "fullName"
-    ], [
+//When the new user signs up
+router.post("/api/users", function (req, res) {
+  workout.createUser(["username", "email", "password", "fullName"
+  ], [
       req.body.username, req.body.email, req.body.password, req.body.fullName
-    ], function(result) {
+    ], function (result) {
       res.json({ id: result.insertID });
     });
+});
+
+//When a returning user logs in
+router.post("/api/users_verify", function (req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+  var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
+
+  workout.verifyUser(condition, function (result) {
+    var userDisplayName = result[0].username
+
+    console.log(condition)
+    if (result.length === 0) {
+      console.log("not verified - username does not exist in users table")
+      res.status(200).json({ redirect: "/" });
+    }
+    else {
+      console.log('verified. Username exists in users table');
+      console.log(result[0].fullname)
+      res.json({ redirect: "/navigate/" + userDisplayName })
+    }
   });
+});
 
-  //When a returning user logs in
-  router.post("/api/users_verify", function(req, res) {
-    var username = req.body.username;
-    var password = req.body.password;
-    var condition = "username = '" + username + "'" + "AND password = '" + password + "'";
+router.get("/explore", function (req, res) {
 
-    workout.verifyUser(condition, function(result) {
-      var userDisplayName = result[0].username
-      
-      console.log(condition)
-      if(result.length === 0) {
-        console.log("not verified - username does not exist in users table")
-        res.status(200).json({redirect: "/"});
+  workout.allPremadeWO(function (result) {
+    var armsWOs = [];
+    var fullBodyWOs = [];
+    var legsWOs = [];
+    var coreWOs = [];
+    var csbWOs = [];
+    for (var i = 0; i < result.length; i++) {
+      switch (result[i].WOType) {
+        case "full body":
+          fullBodyWOs.push(result[i]);
+          break;
+        case "arms":
+          armsWOs.push(result[i]);
+          break;
+        case "legs":
+          legsWOs.push(result[i]);
+          break;
+        case "chest/shoulders/back":
+          csbWOs.push(result[i]);
+          break;
+        case "core":
+          coreWOs.push(result[i]);
+          break;
       }
-      else {
-        console.log('verified. Username exists in users table');
-        console.log(result[0].fullname)
-        res.json({redirect: "/navigate/" + userDisplayName})
-      }
-    });
+    };
+
+    var hbsObject = {
+      fullbody: fullBodyWOs,
+      arms: armsWOs,
+      legs: legsWOs,
+      csb: csbWOs,
+      core: coreWOs
+    };
+
+    console.log(hbsObject);
+
+    res.render("explore", hbsObject);
   });
+});
 
-  router.get("/explore", function(req, res) {
+router.get("/premadeWO/:id", function(req, res) {
+  var woID = parseInt(req.params.id);
+  console.log("workout ID: " + woID);
 
-    workout.allPremadeWO(function(result) {
-      var armsWOs = [];
-      var fullBodyWOs = [];
-      var legsWOs = [];
-      var coreWOs = [];
-      var csbWOs = [];
-      for(var i=0; i<result.length; i++) {
-        switch(result[i].WOType) {
-          case "full body":
-            fullBodyWOs.push(result[i]);
-            break;
-          case "arms":
-            armsWOs.push(result[i]);
-            break;
-          case "legs":
-            legsWOs.push(result[i]);
-            break;
-          case "chest/shoulders/back":
-            csbWOs.push(result[i]);
-            break;
-          case "core":
-            coreWOs.push(result[i]);
-            break;
-        }
-      };
+  workout.selectPremadeWoWhere("id =" + woID,  function(result) {
+    console.log("id result " + result);
+
+    workout.selectExerciseWhereIn("id", result.exerciseList, function(response) {
+      console.log(response);
 
       var hbsObject = {
-        fullbody: fullBodyWOs,
-        arms: armsWOs,
-        legs: legsWOs,
-        csb: csbWOs,
-        core: coreWOs
+        exercise: response
       };
+  
+      res.render("premadeWO", hbsObject);
+    });    
+  });  
+});
 
-      console.log(hbsObject);
-      
-      res.render("explore", hbsObject);
-    });
-  });
+router.get("/navigate/:id", function (req, res) {
+  var navigateUsername = {
+    name: req.params.id
+  }
 
-  router.get("/navigate/:id", function(req, res) {
-    var navigateUsername = {
-      name: req.params.id
-    }
-    
-    console.log(navigateUsername)
-    res.render("navigate", navigateUsername)
-  });
+  console.log(navigateUsername)
+  res.render("navigate", navigateUsername)
+});
 
 module.exports = router;

@@ -2,6 +2,10 @@
 var orm = require("../config/orm.js");
 
 var workout = {
+  resultsArr: [],
+  clearResults: function() {
+    this.resultsArr = [];
+  },
   allUser: function(cb) {
     orm.all("users", function(res) {
       cb(res);
@@ -43,22 +47,14 @@ var workout = {
       cb(res);
     });
   },
-  joinPremadeToWOById: function(woId, cb) {
-
-    orm.selectWhere("premadeWO", "id = '" + woId + "'", function(res) {
-      exercisesIdArr = res[0].exerciseList.split(",");
-      exercisesArr = [];
-
-      for(var i=0; i<exercisesIdArr.length; i++) {
-        exercisesIdArr[i] = parseInt(exercisesIdArr[i].trim());
-        
-        workout.selectExerciseWhere("id = '" + exercisesIdArr[i] + "'", function(result) {
-          exercisesArr.push(result[0]);
-          console.log(result);
-        });
-      };
-      
-      cb(exercisesArr);
+  selectPremadeWoWhere: function(condition, cb) {
+    orm.selectWhere("premadeWO", condition, function(res) {
+      cb(res);
+    });
+  },
+  selectExerciseWhereIn: function(column, conditionArr, cb) {
+    orm.selectWhereIn("exercises", column, conditionArr, function(res) {
+      cb(res);
     });
   }
 };

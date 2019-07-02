@@ -93,7 +93,7 @@ var orm = {
       queryString += " WHERE ";
       queryString += condition;
   
-      console.log(queryString);
+      // console.log(queryString);
 
       connection.query(queryString, function(err, result) {
         if (err) {
@@ -102,6 +102,18 @@ var orm = {
   
         cb(result);
       });
+  },
+  selectWhereIn: function(table, column, conditionArr, cb) {
+    
+    var queryString = "SELECT * FROM " + table;
+    queryString += " WHERE " + column;
+    queryString += " IN " + "(" + conditionArr + ");";
+
+    connection.query(queryString, function(err, result) {
+      if (err) throw err;
+
+      cb(result);
+    });
   },
   createTable: function(tableName, listOfColumns, cb) {
       var queryString = "CREATE TABLE " + tableName;
