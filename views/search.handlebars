@@ -1,50 +1,48 @@
-<body id= "searchCSS">
+<div id= "searchCSS">
       <!-- Search Jumbotron -->
   <div class="main-jumbotron" class="search-title" id="search-jumbotron">
     <h1 class="display-4" >Workout Search</h1>
-    <p class="lead" id= "search-title2">Explore all workouts below!</p>
+    <p class="lead" id= "search-title2">Explore workouts by muscle group!</p>
     <br>
     <!-- Search Bar -->
-    <form class="example" action="action_page.php" id="search-bar">
-      <input type="text" placeholder="Search All Exercises..." id="search">
-      <input class="btn" id="searchSubmit" type="submit" value="Go">
-    </form>
+  <div class="dropdown" id = "searchMenu">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+    Select Muscle Group
+    </button>
+    <div class="dropdown-menu" id = "menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item">abdominals</a>
+      <a class="dropdown-item">adductors</a>
+      <a class="dropdown-item">biceps</a>
+      <a class="dropdown-item">calves</a>
+      <a class="dropdown-item">chest</a>
+      <a class="dropdown-item">forearms</a>
+      <a class="dropdown-item">glutes</a>
+      <a class="dropdown-item">hamstrings</a>
+      <a class="dropdown-item">lats</a>
+      <a class="dropdown-item">lower back</a>
+      <a class="dropdown-item">middle back</a>
+      <a class="dropdown-item">neck</a>
+      <a class="dropdown-item">quadriceps</a>
+      <a class="dropdown-item">shoulders</a>
+      <a class="dropdown-item">traps</a>
+      <a class="dropdown-item">triceps</a>
+     </div>
+  </div>
   </div>
 
  <br></br>
- <br></br>
 
 <ul class="list-group" id = "search-save">
+  {{#each exercises}}
   <li class="list-group-item d-flex justify-content-between align-items-center">
-    Cras justo odio
+   {{name}}
     <button class="btn btn-light" id="favorite-button">❤</button>
   </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Dapibus ac facilisis in
-    <button class="btn btn-light" id="favorite-button">❤</button>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    Morbi leo risus
-    <button class="btn btn-light" id="favorite-button">❤</buttong>
-  </li>
+   {{/each}}
 </ul>
     
-    <br></br>
+    {{!-- <br></br>
     <div>
     <input class="btn" id="savedItems" type="submit" value="View Saved Workouts">
-    </div>
-
-<script>
-   $("#searchSubmit").on("click", function(){
-        console.log("Searching Workout");
-    
-        
-    });
-   $("#favorite-button").on("click", function(){
-        console.log("clicked save workout");
-    
-        
-    });
-
-</script>
-</body>
+    </div> --}}
+</div>
