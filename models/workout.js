@@ -57,13 +57,52 @@ var workout = {
       cb(res);
     });
   },
+  selectPremadeWOWhereIn: function(column, conditionArr, cb) {
+    orm.selectWhereIn("premadeWO", column, conditionArr, function(res) {
+      cb(res);
+    });
+  },
   createUserTable: function(tableName, cb) {
-    var listOfColumns = "id INT NOT NULL AUTO_INCREMENT, ";
-    listOfColumns += 'refTable ENUM("premadeWO", "exercises"), ';
+    var listOfColumns = "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
+    listOfColumns += 'refTable ENUM("premadeWO", "exercises") NOT NULL, ';
     listOfColumns += 'refID INT NOT NULL, ';
-    listOfColumns += 'PRIMARYKEY(id)';
+    listOfColumns += 'assignedDay VARCHAR(255)';
+
+    console.log(listOfColumns);
     
     orm.createTable(tableName, listOfColumns, function(res) {
+      cb(res);
+    });
+  },
+  allUserFavs: function(hashpw, cb) {
+    var condition = 'password = "' + hashpw + '"';
+
+    this.verifyUser(condition, function(res) {
+      var username = res[0].username;
+      console.log(username);
+
+      orm.all(username, function(result) {
+        cb(result);
+      });
+    });
+  },
+  addFavToUserTable: function(userHash, vals, cb) {
+    var columns = ["refTable", "refID"];
+    orm.create(userHash, columns, vals, function(res) {
+      cb(Res);
+    });
+  },
+  // for deleting an associated day from a saved favorite in the user's table
+  updateFavInUserTable: function(userHash, dayOfWeek, condition, cb) {
+    var updatedInfo = {"dayOfWeek": dayOfWeek};
+    orm.update(userHash, updatedInfo, condition, function(res) {
+      cb(res);
+    });
+  },
+  deleteFavInUserTable: function(userHash, savedID, cb) {
+    var condition = "id = " + savedID;
+
+    orm.delete(userHash, condition, function(res) {
       cb(res);
     });
   }
