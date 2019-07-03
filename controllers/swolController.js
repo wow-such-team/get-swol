@@ -260,7 +260,7 @@ router.get("/errorpw", function (req, res) {
   }
   res.render("index", error)
 });
-
+//Routing after logging in
 router.get("/navigate/:id/search", function (req, res) {
   var id = req.params.id
   console.log(id)
@@ -279,6 +279,7 @@ router.get("/navigate/:id/favorites", function (req, res) {
   res.json({ redirect: "/favorites/" + id })
 })
 
+//Nav Bar Routing
 router.get("/search/:id/nav/explore", function (req, res) {
   var id = req.params.id
   res.json({ redirect: "/explore/" + id })
@@ -315,6 +316,49 @@ router.get("/favorites/:id/nav/login", function (req, res) {
   var id = req.params.id
   res.json({ redirect: "/" })
 })
+router.get("/search/:id/:muscle/nav/explore", function (req, res) {
+  var id = req.params.id
+  res.json({ redirect: "/explore/" + id })
+})
+router.get("/search/:id/:muscle/nav/favorites", function (req, res) {
+  var id = req.params.id
+  res.json({ redirect: "/favorites/" + id })
+})
+router.get("/search/:id/:muscle/nav/login", function (req, res) {
+  var id = req.params.id
+  res.json({ redirect: "/" })
+})
 
+//To save exercicese from search page
+router.post("/search/:id/:muscle/savesearch", function (req, res) {
+  var id = req.params.id;
+  var searchToSave = req.body.exerciseToSave;
+  var condition = "password='" + id + "'";
+
+  workout.verifyUser(condition, function (result) {
+    var tablename = result[0].username
+    var refid = Math.floor((Math.random() * 100) + 1);
+    console.log("tablename: " + tablename)
+    console.log("lenght of user table check: " + result.length)
+    if(result.length === 1) {
+      var condition = "exerciseName = '" + searchToSave + "'";
+      workout.verifySaved(tablename, condition, function(response) {
+        if(response.length === 0) {
+          console.log("lenght of exercise in table check: " + response.length)
+          workout.addFavToUserTable(tablename, ["exercises", refid, searchToSave], function(data) {
+            if(data) {
+              console.log("added to table")
+            }
+          })
+        }
+        else(
+          console.log("this workout already exists in this user's table")
+        )
+      })
+    }
+  })
+
+
+})
 
 module.exports = router;

@@ -66,6 +66,7 @@ var workout = {
     var listOfColumns = "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
     listOfColumns += 'refTable ENUM("premadeWO", "exercises") NOT NULL, ';
     listOfColumns += 'refID INT NOT NULL, ';
+    listOfColumns += 'exerciseName VARCHAR(255), ';
     listOfColumns += 'assignedDay VARCHAR(255)';
 
     console.log(listOfColumns);
@@ -87,9 +88,14 @@ var workout = {
     });
   },
   addFavToUserTable: function(userHash, vals, cb) {
-    var columns = ["refTable", "refID"];
+    var columns = ["refTable", "refID", "exerciseName"];
     orm.create(userHash, columns, vals, function(res) {
-      cb(Res);
+      cb(res);
+    });
+  },
+  verifySaved: function(tablename, condition, cb) {
+    orm.selectWhere(tablename, condition, function(res) {
+      cb(res);
     });
   },
   // for deleting an associated day from a saved favorite in the user's table
