@@ -57,6 +57,11 @@ var workout = {
       cb(res);
     });
   },
+  selectPremadeWOWhereIn: function(column, conditionArr, cb) {
+    orm.selectWhereIn("premadeWO", column, conditionArr, function(res) {
+      cb(res);
+    });
+  },
   createUserTable: function(tableName, cb) {
     var listOfColumns = "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
     listOfColumns += 'refTable ENUM("premadeWO", "exercises") NOT NULL, ';
@@ -67,6 +72,18 @@ var workout = {
     
     orm.createTable(tableName, listOfColumns, function(res) {
       cb(res);
+    });
+  },
+  allUserFavs: function(hashpw, cb) {
+    var condition = 'password = "' + hashpw + '"';
+
+    this.verifyUser(condition, function(res) {
+      var username = res[0].username;
+      console.log(username);
+
+      orm.all(username, function(result) {
+        cb(result);
+      });
     });
   },
   addFavToUserTable: function(userHash, vals, cb) {

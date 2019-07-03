@@ -12,7 +12,46 @@ router.get("/", function (req, res) {
 });
 
 router.get("/favorites/:id", function (req, res) {
-  res.render("favorites");
+  var hashpw = req.params.id;
+
+  workout.allUserFavs(hashpw, function(result) {
+    console.log(result);
+    var premadeFavsIDs = [];
+    var singleFavsIDs = [];
+    var premadeFavs;
+    var singleFavs;
+
+    for(var i=0; i<result.length; i++) {
+      if(result[i].refTable==="exercises") {
+        singleFavsIDs.push(result[i].refID);
+      }
+      else if(result[i].refTable==="premadeWO") {
+        premadeFavsIDs.push(result[i].refID);
+      };
+    };
+
+    workout.selectExerciseWhereIn("id", singleFavsIDs, function(response) {
+      singleFavs = response;
+      console.log("single favs");
+      console.log(singleFavs);
+
+      workout.selectPremadeWOWhereIn("id", premadeFavsIDs, function(results) {
+        premadeFavs = results;
+        console.log("premade favs");
+        console.log(premadeFavs);
+
+        var hbsObject = {
+          singles: singleFavs,
+          premades: premadeFavs
+        };
+      
+        console.log("handlebars object");
+        console.log(hbsObject);
+      
+        res.render("favorites", hbsObject);
+      });
+    });
+  });
 });
 
 router.get("/search/:id", function (req, res) {
@@ -22,10 +61,13 @@ router.get("/search/:id", function (req, res) {
 //When the new user signs up
 router.post("/api/users", function (req, res) {
   var condition = "username='" + req.body.username + "'";
+
+  // checks if username already exists
   workout.verifyUser(condition, function(response) {
     console.log(condition);
     console.log(response);
 
+    // if username is not already in use, allow creation of new user
     if(response.length===0) {
       bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
         console.log("hash: " + hash)
@@ -39,11 +81,7 @@ router.post("/api/users", function (req, res) {
     
               console.log(req.body.username);
     
-              workout.createUserTable(req.body.username.trim(), function (result) {
-                // res.json( { id: data.insertID })
-                // console.log("data = " + data)
-                // console.log(result);
-    
+              workout.createUserTable(req.body.username.trim(), function (result) {    
                 res.json({ redirect: "/navigate/" + hashpw });
               });
     
@@ -53,13 +91,10 @@ router.post("/api/users", function (req, res) {
     
       });
     }
+    // if username already exists, error message
     else {
-      // var error = {
-      //   errorMessage: "*username is already taken"
-      // };
-      // res.render ("index", error)
       res.json({ redirect: "/tryagain" });
-    }
+    };
   });
 
   
@@ -97,6 +132,9 @@ router.post("/api/users_verify", function (req, res) {
   })
 });
 
+router.get("/api/premadeWO", function(req, res) {
+  
+});
 
 router.get("/premadeWO/:workoutID/:id", function (req, res) {
   var woID = parseInt(req.params.workoutID);
