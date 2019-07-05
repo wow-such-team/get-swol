@@ -89,7 +89,12 @@ var workout = {
   addFavToUserTable: function(userHash, vals, cb) {
     var columns = ["refTable", "refID"];
     orm.create(userHash, columns, vals, function(res) {
-      cb(Res);
+      cb(res);
+    });
+  },
+  verifySaved: function(tablename, condition, cb) {
+    orm.selectWhere(tablename, condition, function(res) {
+      cb(res);
     });
   },
   // for deleting an associated day from a saved favorite in the user's table

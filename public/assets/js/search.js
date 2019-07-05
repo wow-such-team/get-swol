@@ -59,4 +59,22 @@ $(function() {
         )
     })
 
+    //Save Exercise
+    $(".favorite-button").on("click", function(event){
+        event.preventDefault();
+        var saveThis = {
+            exerciseToSave: $(this).siblings("p")[0].innerText
+        }
+        console.log(saveThis);
+
+        $.ajax(window.location.pathname + "/savesearch", {
+            type: "POST",
+            data: saveThis
+        }).then(
+            function(response){
+                window.location = response.redirect;
+            }
+        )
+    })
+
 })
