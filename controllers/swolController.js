@@ -337,24 +337,32 @@ router.post("/search/:id/:muscle/savesearch", function (req, res) {
 
   workout.verifyUser(condition, function (result) {
     var tablename = result[0].username
-    var refid = Math.floor((Math.random() * 100) + 1);
     console.log("tablename: " + tablename)
     console.log("lenght of user table check: " + result.length)
     if(result.length === 1) {
-      var condition = "exerciseName = '" + searchToSave + "'";
-      workout.verifySaved(tablename, condition, function(response) {
-        if(response.length === 0) {
-          console.log("lenght of exercise in table check: " + response.length)
-          workout.addFavToUserTable(tablename, ["exercises", refid, searchToSave], function(data) {
-            if(data) {
-              console.log("added to table")
+      var condition2 = "name = '" + searchToSave + "'";
+      workout.selectExerciseWhere(condition2, function(result2) {
+        var searchid = result2[0].id
+        console.log("searchid = " + searchid)
+
+        if(result2) {
+          var condition3 = "refID = '" + searchid + "'";
+          workout.verifySaved(tablename, condition3, function(response) {
+            if(response.length === 0) {
+              console.log("lenght of exercise in table check: " + response.length)
+              workout.addFavToUserTable(tablename, ["exercises", searchid], function(data) {
+                if(data) {
+                  console.log("added to table")
+                }
+              })
             }
+            else(
+              console.log("this workout already exists in this user's table")
+            )
           })
         }
-        else(
-          console.log("this workout already exists in this user's table")
-        )
       })
+
     }
   })
 

@@ -66,7 +66,6 @@ var workout = {
     var listOfColumns = "id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
     listOfColumns += 'refTable ENUM("premadeWO", "exercises") NOT NULL, ';
     listOfColumns += 'refID INT NOT NULL, ';
-    listOfColumns += 'exerciseName VARCHAR(255), ';
     listOfColumns += 'assignedDay VARCHAR(255)';
 
     console.log(listOfColumns);
@@ -88,7 +87,7 @@ var workout = {
     });
   },
   addFavToUserTable: function(userHash, vals, cb) {
-    var columns = ["refTable", "refID", "exerciseName"];
+    var columns = ["refTable", "refID"];
     orm.create(userHash, columns, vals, function(res) {
       cb(res);
     });
