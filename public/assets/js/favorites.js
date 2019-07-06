@@ -2,18 +2,16 @@ $(document).ready(function () {
 
     console.log("favorites.js working");
 
-    var savedWorkouts = [
+    // var savedWODiv = $('<th scope="col"> ❤' + savedWO+ '</th>');
 
-    ];
-
-    var savedWODiv = $('<th scope="col"> ❤' + savedWorkouts + '</th>');
+    var savedWODiv = $("#savedWOitems")
 
     // assignes unique href to each premade workout to allow for dropdown function
-    $(".favPremade").on("click", function() {
-        $(this).attr({href: "#" + $(this).attr('value')});
-        console.log($(this).attr('value'));
-        console.log($(this).attr('href'));
-    });
+    // $(".favPremade").on("click", function() {
+    //     $(this).attr({href: "#" + $(this).attr('value')});
+    //     console.log($(this).attr('value'));
+    //     console.log($(this).attr('href'));
+    // });
 
     $("#sunday_btn").on("click", function () {
         $("#sunday_data").append(savedWODiv)
