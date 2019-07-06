@@ -16,18 +16,18 @@ router.get("/favorites/:id", function (req, res) {
 
   workout.allUserFavs(hashpw, function(result) {
     console.log(result);
-    var premadeFavsIDs = [];
+    // var premadeFavsIDs = [];
     var singleFavsIDs = [];
-    var premadeFavs;
+    // var premadeFavs;
     var singleFavs;
 
     for(var i=0; i<result.length; i++) {
       if(result[i].refTable==="exercises") {
         singleFavsIDs.push(result[i].refID);
       }
-      else if(result[i].refTable==="premadeWO") {
-        premadeFavsIDs.push(result[i].refID);
-      };
+      // else if(result[i].refTable==="premadeWO") {
+      //   premadeFavsIDs.push(result[i].refID);
+      // };
     };
 
     workout.selectExerciseWhereIn("id", singleFavsIDs, function(response) {
@@ -35,21 +35,21 @@ router.get("/favorites/:id", function (req, res) {
       console.log("single favs");
       console.log(singleFavs);
 
-      workout.selectPremadeWOWhereIn("id", premadeFavsIDs, function(results) {
-        premadeFavs = results;
-        console.log("premade favs");
-        console.log(premadeFavs);
+      // workout.selectPremadeWOWhereIn("id", premadeFavsIDs, function(results) {
+      //   premadeFavs = results;
+      //   console.log("premade favs");
+      //   console.log(premadeFavs);
 
         var hbsObject = {
           singles: singleFavs,
-          premades: premadeFavs
+          // premades: premadeFavs
         };
       
         console.log("handlebars object");
         console.log(hbsObject);
       
         res.render("favorites", hbsObject);
-      });
+      // });
     });
   });
 });

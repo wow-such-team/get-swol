@@ -29,23 +29,23 @@
                   <th scope="col" id="saved-item">Single Exercises</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id= "savedWOitems">
                 {{#each singles}}
-                <tr>
-                  <td>
+                <tr >
+                  <td  >
                     {{name}}
                   </td>
                 </tr>
                 {{/each}}
               </tbody>
 
-              <thead>
+              {{!-- <thead>
                 <tr>
                   <th scope="col" id="saved-item">Premade Workouts</th>
                 </tr>
               </thead>
               <tbody>
-                {{#each premades}}
+                {{!-- {{#each premades}}
                 <tr>
                   <td>
                     <a data-toggle="collapse" class="favPremade" value={{id}}{{name}} role="button"
@@ -59,8 +59,8 @@
                     </div>
                   </td>
                 </tr>
-                {{/each}}
-              </tbody>
+                {{/each}} --}}
+              {{!-- </tbody> --}} 
 
             </table>
           </div>
